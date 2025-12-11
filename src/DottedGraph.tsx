@@ -148,6 +148,7 @@ nodes.forEach((node: NodeData) => {
       return;
     }
 
+    // TODO: Currently this is hardcoded to be attack boxes, but this cannot be the case in the future! We need to talk about functionality more! This should probably be something asked at the start.
     // Left-click → create node
     if (e.button === 0) {
       const rect = canvas.getBoundingClientRect();
