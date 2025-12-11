@@ -7,6 +7,7 @@ import { NodeData } from "./GraphComponents/types"; // this is where we will hol
 
 
 // This is where all the front end starts, the top layer. 
+// Just adding this comment to test if my commits are signed
 
 
 const App: React.FC = () => {
