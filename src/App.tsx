@@ -1,51 +1,23 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
+import reactLogo from "./assets/react.svg"; // left over from start
+import { invoke } from "@tauri-apps/api/core"; // left over from start
 import "./App.css";
+import DottedGraph from "./DottedGraph"; // represents the graph UI logic
+import { NodeData } from "./GraphComponents/types"; // this is where we will hold basic data types for the graph, may divide up in the future and hence a folder
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+// This is where all the front end starts, the top layer. 
+
+
+const App: React.FC = () => {
+  const [nodes, setNodes] = useState<NodeData[]>([]); // here will hold the top layer data until we move it later for better organization
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+    <DottedGraph // represents the graph UI logic
+      nodes={nodes} // Nodes data passed from top layer state 
+      onAddNode={(node) => setNodes((prev) => [...prev, node])} // Handles adding new nodes to the state
+    />
   );
-}
+};
 
-export default App;
+export default App; // exporting to use the app!
